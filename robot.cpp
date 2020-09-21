@@ -4,40 +4,40 @@
 #include<deque>
 #include<algorithm>
 using namespace std;
-//201621427 Á¶Àç¼º ÄÄÇ»ÅÍÁ¤º¸°øÇÐºÎ 
+ 
 int main(void){
-	vector<pair<int,int> >v;//(°æ°ú½Ã°£,¹æÇâ)À» ÀúÀåÇÏ±â À§ÇÑ º¤ÅÍ ½Ö 
-	vector<pair<int,int> >v2;//(ÃÊ±âÀ§Ä¡,°¡ÁßÄ¡)À» ÀúÀåÇÏ±â À§ÇÑ º¤ÅÍ ½Ö 
-	deque<int>dq;//°¡ÁßÄ¡¸¦ ÀúÀåÇÏ±â À§ÇÑ deque 
+	vector<pair<int,int> >v;//(ê²½ê³¼ì‹œê°„,ë°©í–¥)ì„ ì €ìž¥í•˜ê¸° ìœ„í•œ ë²¡í„° ìŒ 
+	vector<pair<int,int> >v2;//(ì´ˆê¸°ìœ„ì¹˜,ê°€ì¤‘ì¹˜)ì„ ì €ìž¥í•˜ê¸° ìœ„í•œ ë²¡í„° ìŒ 
+	deque<int>dq;//ê°€ì¤‘ì¹˜ë¥¼ ì €ìž¥í•˜ê¸° ìœ„í•œ deque 
 	int n,b,w,x,d,check=0;
-	int ans=0;//½°ÅÍ·Î µé¾î°£ °³¹Ì ·Îº¿ÀÇ °¡ÁßÄ¡¿Í ÀüÃ¼ °³¹Ì ·Îº¿ °¡ÁßÄ¡ ÇÕÀÇ ¹Ý°ú ºñ±³ÇÏ±â À§ÇÑ º¯¼ö 
-	double sum=0;//ÀüÃ¼ °³¹Ì ·Îº¿ °¡ÁßÄ¡ ÇÕÀÇ ¹ÝÀ» ³ªÅ¸³¾ º¯¼ö 
+	int ans=0;//ì‰¼í„°ë¡œ ë“¤ì–´ê°„ ê°œë¯¸ ë¡œë´‡ì˜ ê°€ì¤‘ì¹˜ì™€ ì „ì²´ ê°œë¯¸ ë¡œë´‡ ê°€ì¤‘ì¹˜ í•©ì˜ ë°˜ê³¼ ë¹„êµí•˜ê¸° ìœ„í•œ ë³€ìˆ˜ 
+	double sum=0;//ì „ì²´ ê°œë¯¸ ë¡œë´‡ ê°€ì¤‘ì¹˜ í•©ì˜ ë°˜ì„ ë‚˜íƒ€ë‚¼ ë³€ìˆ˜ 
 	scanf("%d%d",&n,&b);
 	for(int i=0;i<n;i++){
 		scanf("%d%d%d",&w,&x,&d);
 		sum+=w;
-		if(d<0)v.push_back(make_pair(x,d));//¹æÇâ¿¡ ¸ÂÃß¾î¼­ (°æ°ú½Ã°£,¹æÇâ)À¸·Î ÀúÀåÇÑ´Ù. 
+		if(d<0)v.push_back(make_pair(x,d));//ë°©í–¥ì— ë§žì¶”ì–´ì„œ (ê²½ê³¼ì‹œê°„,ë°©í–¥)ìœ¼ë¡œ ì €ìž¥í•œë‹¤. 
 		else v.push_back(make_pair(b-x,d)); 
-		v2.push_back(make_pair(x,w));//(ÃÊ±âÀ§Ä¡,°¡ÁßÄ¡) ÀúÀå. 
+		v2.push_back(make_pair(x,w));//(ì´ˆê¸°ìœ„ì¹˜,ê°€ì¤‘ì¹˜) ì €ìž¥. 
 	}
 	sum/=2;
-	sort(v.begin(),v.end());//°æ°ú½Ã°£¿¡ ¸Â°Ô ¿À¸§Â÷¼ø Á¤·Ä
-	sort(v2.begin(),v2.end());//ÃÊ±âÀ§Ä¡¿¡ ¸Â°Ô ¿À¸§Â÷¼ø Á¤·Ä
-	for(int i=0;i<v2.size();i++){//deque¿¡ °¡ÁßÄ¡¸¦ ³Ö¾îÁØ´Ù. 
+	sort(v.begin(),v.end());//ê²½ê³¼ì‹œê°„ì— ë§žê²Œ ì˜¤ë¦„ì°¨ìˆœ ì •ë ¬
+	sort(v2.begin(),v2.end());//ì´ˆê¸°ìœ„ì¹˜ì— ë§žê²Œ ì˜¤ë¦„ì°¨ìˆœ ì •ë ¬
+	for(int i=0;i<v2.size();i++){//dequeì— ê°€ì¤‘ì¹˜ë¥¼ ë„£ì–´ì¤€ë‹¤. 
 		dq.push_back(v2[i].second);
 	} 
-	for(int i=0;i<n;i++){//Á¤·ÄµÈ °æ°ú½Ã°£¿¡ ÀÇÇØ ¹æÇâ¿¡ µû¶ó °¡ÁßÄ¡¸¦ ´õÇØ ³ª°¡¸é¼­ ¹®Á¦ Á¶°ÇÀ» ¸¸Á·ÇÒ ½Ã ´äÀ» Ãâ·Â. 
-		if(v[i].second<0){//¹æÇâÀÌ ¿ÞÂÊÀÌ¶ó¸é 
-			ans+=dq.front();//°¡ÁßÄ¡ÀÇ ¿ÞÂÊ°ªÀ» ´õÇØÁØ´Ù. 
-			if(ans>=sum){//Á¶°Ç¿¡ ¸¸Á·ÇÏ¸é Á¤´äÀ» Ãâ·ÂÇÏ°í Á¾·á. 
+	for(int i=0;i<n;i++){//ì •ë ¬ëœ ê²½ê³¼ì‹œê°„ì— ì˜í•´ ë°©í–¥ì— ë”°ë¼ ê°€ì¤‘ì¹˜ë¥¼ ë”í•´ ë‚˜ê°€ë©´ì„œ ë¬¸ì œ ì¡°ê±´ì„ ë§Œì¡±í•  ì‹œ ë‹µì„ ì¶œë ¥. 
+		if(v[i].second<0){//ë°©í–¥ì´ ì™¼ìª½ì´ë¼ë©´ 
+			ans+=dq.front();//ê°€ì¤‘ì¹˜ì˜ ì™¼ìª½ê°’ì„ ë”í•´ì¤€ë‹¤. 
+			if(ans>=sum){//ì¡°ê±´ì— ë§Œì¡±í•˜ë©´ ì •ë‹µì„ ì¶œë ¥í•˜ê³  ì¢…ë£Œ. 
 				printf("%d\n",v[i].first);
 				break;
 			}
 			else dq.pop_front();
 		}
-		else{//¹æÇâÀÌ ¿À¸¥ÂÊÀÌ¶ó¸é 
-			ans+=dq.back();//°¡ÁßÄ¡ÀÇ ¿À¸¥ÂÊ°ªÀ» ´õÇØÁØ´Ù. 
-			if(ans>=sum){//Á¶°Ç¿¡ ¸¸Á·ÇÏ¸é Á¤´äÀ» Ãâ·ÂÇÏ°í Á¾·á. 
+		else{//ë°©í–¥ì´ ì˜¤ë¥¸ìª½ì´ë¼ë©´ 
+			ans+=dq.back();//ê°€ì¤‘ì¹˜ì˜ ì˜¤ë¥¸ìª½ê°’ì„ ë”í•´ì¤€ë‹¤. 
+			if(ans>=sum){//ì¡°ê±´ì— ë§Œì¡±í•˜ë©´ ì •ë‹µì„ ì¶œë ¥í•˜ê³  ì¢…ë£Œ. 
 				printf("%d\n",v[i].first);
 				break;
 			}
