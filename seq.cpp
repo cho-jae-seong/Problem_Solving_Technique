@@ -4,7 +4,7 @@
 #include<algorithm>
 #include<memory.h>
 using namespace std;
- 
+
 int main(void){
 	int n,num;//입력 받을 n과 벡터에 넣어줄 숫자num 
 	vector<int> v;//초기에 입력받은 원소들을 저장할 vector v 
